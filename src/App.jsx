@@ -137,8 +137,8 @@ const App = () => {
                   <div className="absolute top-4 right-4 bg-slate-900 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">In Stock</div>
                 </div>
                 <div className="px-4 pb-6 flex-grow flex flex-col">
-                  <h3 className="text-2xl font-luxury font-bold text-slate-900 mb-2">Digital Pull Tester</h3>
-                  <p className="text-slate-600 text-sm mb-6 flex-grow font-light">Affordable solutions for accurate pull force testing needs. Guaranteed precision for ABAA T0002 compliance.</p>
+                  <h3 className="text-2xl font-luxury font-bold text-slate-900 mb-2">Air Barrier Adhesion Test Kit</h3>
+                  <p className="text-slate-600 text-sm mb-6 flex-grow font-light">Complete, field-ready kit for accurate air barrier adhesion testing. Includes everything needed for guaranteed precision and ABAA T0002 compliance.</p>
                   <div className="flex items-center justify-between mb-6">
                     <span className="text-2xl font-bold text-slate-900">$1,495.00</span>
                     <div className="flex text-stone-400">
