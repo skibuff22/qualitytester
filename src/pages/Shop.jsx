@@ -59,7 +59,7 @@ const Shop = () => {
                                     <Star size={16} fill="currentColor" />
                                 </div>
                             </div>
-                            <a href="#" className="w-full bg-slate-900 hover:bg-stone-700 text-white h-14 rounded-md font-bold flex items-center justify-center transition-colors">
+                            <a href="https://buy.stripe.com/test_5kQcMYaUNbCDgEDdtc4ZG01" target="_blank" rel="noopener noreferrer" className="w-full bg-slate-900 hover:bg-stone-700 text-white h-14 rounded-md font-bold flex items-center justify-center transition-colors">
                                 Buy Now (Stripe) <ArrowRight size={18} className="ml-2" />
                             </a>
                         </div>
