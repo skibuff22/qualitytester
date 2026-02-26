@@ -32,17 +32,17 @@ function App() {
 
       {/* Hero Section */}
       <main>
-        <div className="relative isolate px-6 pt-14 lg:px-8 bg-black bg-opacity-40">
+        <div className="relative isolate px-6 pt-14 lg:px-8 bg-black bg-opacity-70">
           {/* Background Image Setup */}
           <div className="absolute inset-0 -z-10">
-            <img src="/images/hero-background.jpg" alt="Force Measurement Systems Banner" className="w-full h-full object-cover mix-blend-multiply opacity-80" />
+            <img src="/images/hero-background.jpg" alt="Force Measurement Systems Banner" className="w-full h-full object-cover mix-blend-overlay opacity-60" />
           </div>
 
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-40 text-center">
-            <h1 className="text-4xl font-luxury tracking-tight text-white sm:text-6xl mb-8">
+            <h1 className="text-4xl font-luxury tracking-tight text-white sm:text-6xl mb-8 drop-shadow-lg">
               Testers Built to Last
             </h1>
-            <p className="mt-6 text-lg leading-8 text-stone-100 font-light mb-10 max-w-xl mx-auto drop-shadow-md">
+            <p className="mt-6 text-lg leading-8 text-stone-100 font-medium mb-10 max-w-xl mx-auto drop-shadow-md">
               Engineered Excellence. Affordable solutions for accurate product testing without breaking the bank.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
@@ -72,6 +72,9 @@ function App() {
             <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
               <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
                 <div className="flex flex-col group cursor-pointer">
+                  <div className="overflow-hidden rounded-xl mb-6 shadow-sm border border-stone-100">
+                    <img src="/images/pull-tester.jpg" alt="Digital Pull Tester" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500 ease-out" />
+                  </div>
                   <dt className="flex items-center gap-x-3 text-xl font-luxury leading-7 text-slate-900 group-hover:text-stone-600 transition-colors">
                     Pull Testers
                   </dt>
@@ -80,6 +83,9 @@ function App() {
                   </dd>
                 </div>
                 <div className="flex flex-col group cursor-pointer">
+                  <div className="overflow-hidden rounded-xl mb-6 shadow-sm border border-stone-100 bg-stone-50 flex items-center justify-center">
+                    <img src="/images/tensile-tester.jpg" alt="Precision Tensile Tester" className="w-full h-64 object-contain group-hover:scale-105 transition-transform duration-500 ease-out" />
+                  </div>
                   <dt className="flex items-center gap-x-3 text-xl font-luxury leading-7 text-slate-900 group-hover:text-stone-600 transition-colors">
                     Tensile Testers
                   </dt>
@@ -88,6 +94,9 @@ function App() {
                   </dd>
                 </div>
                 <div className="flex flex-col group cursor-pointer">
+                  <div className="overflow-hidden rounded-xl mb-6 shadow-sm border border-stone-100">
+                    <img src="/images/fixtures.jpg" alt="Test Fixtures and Grips" className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500 ease-out" />
+                  </div>
                   <dt className="flex items-center gap-x-3 text-xl font-luxury leading-7 text-slate-900 group-hover:text-stone-600 transition-colors">
                     Fixtures and Grips
                   </dt>
