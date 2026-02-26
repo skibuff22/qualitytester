@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { products } from '../data/products';
 import { Star, ShieldCheck, Truck, ArrowLeft, ArrowRight } from 'lucide-react';
@@ -6,6 +6,20 @@ import { Star, ShieldCheck, Truck, ArrowLeft, ArrowRight } from 'lucide-react';
 const ProductDetail = () => {
   const { id } = useParams();
   const product = products.find(p => p.id === id);
+  const [activeImage, setActiveImage] = useState(product ? `${product.imageBase}.jpg` : '');
+  const [activeWebp, setActiveWebp] = useState(product ? `${product.imageBase}.webp` : '');
+  const [activeSmWebp, setActiveSmWebp] = useState(product ? `${product.imageBase}-sm.webp` : '');
+  const [activeSmJpg, setActiveSmJpg] = useState(product ? `${product.imageBase}-sm.jpg` : '');
+
+  // Reset active image when product changes
+  React.useEffect(() => {
+    if (product) {
+      setActiveImage(`${product.imageBase}.jpg`);
+      setActiveWebp(`${product.imageBase}.webp`);
+      setActiveSmWebp(`${product.imageBase}-sm.webp`);
+      setActiveSmJpg(`${product.imageBase}-sm.jpg`);
+    }
+  }, [product]);
 
   if (!product) {
     return (
@@ -33,7 +47,7 @@ const ProductDetail = () => {
 
       <div className="container mx-auto px-6 max-w-7xl py-12 lg:py-20">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
-          
+
           {/* Image Gallery Column */}
           <div className="lg:w-1/2">
             <div className="bg-stone-50 rounded-2xl p-8 border border-stone-100 relative overflow-hidden flex items-center justify-center">
@@ -43,22 +57,53 @@ const ProductDetail = () => {
                 </div>
               )}
               <picture>
-                <source srcSet={`${product.imageBase}-sm.webp`} media="(max-width: 768px)" type="image/webp" />
-                <source srcSet={`${product.imageBase}-sm.jpg`} media="(max-width: 768px)" type="image/jpeg" />
-                <source srcSet={`${product.imageBase}.webp`} type="image/webp" />
-                <img 
-                  src={`${product.imageBase}.jpg`} 
-                  alt={product.name} 
-                  className="w-full h-auto object-contain max-h-[500px]" 
+                <source srcSet={activeSmWebp} media="(max-width: 768px)" type="image/webp" />
+                <source srcSet={activeSmJpg} media="(max-width: 768px)" type="image/jpeg" />
+                <source srcSet={activeWebp} type="image/webp" />
+                <img
+                  src={activeImage}
+                  alt={product.name}
+                  className="w-full h-auto object-contain max-h-[500px] transition-opacity duration-300"
                   loading="lazy"
                 />
               </picture>
             </div>
             {/* Thumbnails (for visual flair) */}
-            <div className="flex gap-4 mt-4">
-              <div className="w-20 h-20 bg-stone-50 rounded-lg border-2 border-slate-900 flex items-center justify-center p-2 cursor-pointer">
-                <img src={`${product.imageBase}-sm.jpg`} alt={`${product.name} Thumbnail 1`} className="w-full h-full object-contain" />
+            <div className="flex flex-wrap gap-4 mt-6 justify-center lg:justify-start">
+              <div
+                className={`w-20 h-20 bg-stone-50 rounded-lg border-2 ${activeImage.includes(product.imageBase) && !activeImage.includes('-sm') && !activeImage.includes('gallery') ? 'border-slate-900 border-2' : 'border-stone-200'} flex items-center justify-center p-2 cursor-pointer hover:border-slate-900 transition-colors`}
+                onClick={() => {
+                  setActiveImage(`${product.imageBase}.jpg`);
+                  setActiveWebp(`${product.imageBase}.webp`);
+                  setActiveSmWebp(`${product.imageBase}-sm.webp`);
+                  setActiveSmJpg(`${product.imageBase}-sm.jpg`);
+                }}
+              >
+                <img src={`${product.imageBase}-sm.jpg`} alt={`${product.name} Main View`} className="w-full h-full object-contain mix-blend-multiply" />
               </div>
+
+              {product.imageGallery && product.imageGallery.map((imgSrc, idx) => {
+                const isWebp = imgSrc.endsWith('.webp');
+                const jpgSrc = isWebp ? imgSrc.replace('.webp', '.jpg') : imgSrc;
+                const largeWebp = imgSrc.replace('-sm.', '.');
+                const largeJpg = jpgSrc.replace('-sm.', '.');
+                const isActive = activeImage === largeJpg;
+
+                return (
+                  <div
+                    key={idx}
+                    className={`w-20 h-20 bg-stone-50 rounded-lg border-2 ${isActive ? 'border-slate-900 border-2' : 'border-stone-200'} flex items-center justify-center p-2 cursor-pointer hover:border-slate-900 transition-colors bg-white`}
+                    onClick={() => {
+                      setActiveImage(largeJpg);
+                      setActiveWebp(largeWebp);
+                      setActiveSmWebp(imgSrc);
+                      setActiveSmJpg(jpgSrc);
+                    }}
+                  >
+                    <img src={jpgSrc} alt={`${product.name} Component ${idx + 1}`} className="w-full h-full object-contain mix-blend-multiply" />
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -74,7 +119,7 @@ const ProductDetail = () => {
               </div>
               <span className="text-sm font-light text-slate-500">SKU: {product.id}</span>
             </div>
-            
+
             <h1 className="text-4xl lg:text-5xl font-luxury font-bold text-slate-900 mb-2 leading-tight">
               {product.name}
             </h1>
@@ -85,25 +130,25 @@ const ProductDetail = () => {
             {/* CTA */}
             <div className="mb-10 pb-10 border-b border-stone-100">
               {product.stripeLink ? (
-                <a 
-                  href={product.stripeLink} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={product.stripeLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full md:w-auto bg-slate-900 hover:bg-stone-700 text-white px-12 py-5 rounded-md font-bold text-lg inline-flex items-center justify-center transition-colors shadow-lg"
                 >
                   Buy Now via Stripe <ArrowRight size={20} className="ml-3" />
                 </a>
               ) : (
-                <a 
-                  href="mailto:info@qualitytesters.shop" 
+                <a
+                  href="mailto:info@qualitytesters.shop"
                   className="w-full md:w-auto bg-white border-2 border-slate-900 hover:bg-slate-900 hover:text-white text-slate-900 px-12 py-5 rounded-md font-bold text-lg inline-flex items-center justify-center transition-colors"
                 >
                   Contact to Order
                 </a>
               )}
-              <div className="flex items-center space-x-6 mt-6 text-sm text-stone-500">
-                <div className="flex items-center"><ShieldCheck size={16} className="mr-2" /> 256-bit Secure Checkout</div>
-                <div className="flex items-center"><Truck size={16} className="mr-2" /> Fast Shipping via Tampa</div>
+              <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-8 text-sm text-stone-600 bg-stone-50 p-4 rounded-xl border border-stone-100">
+                <div className="flex items-center font-medium"><ShieldCheck size={20} className="mr-3 text-emerald-600" /> 256-bit Secure Checkout</div>
+                <div className="flex items-center font-medium"><Truck size={20} className="mr-3 text-slate-900" /> Free FedEx Ground Shipping Included (US Domestic Only)</div>
               </div>
             </div>
 
@@ -123,7 +168,7 @@ const ProductDetail = () => {
               <ul className="space-y-2 font-light text-slate-700 bg-stone-50 p-6 rounded-xl border border-stone-100">
                 {product.additionalInfo.split(', ').map((spec, idx) => (
                   <li key={idx} className="flex border-b border-stone-200 last:border-0 pb-2 mb-2 last:pb-0 last:mb-0">
-                    <span className="font-medium mr-2">{spec.split(': ')[0]}:</span> 
+                    <span className="font-medium mr-2">{spec.split(': ')[0]}:</span>
                     {spec.split(': ')[1]}
                   </li>
                 ))}

@@ -7,6 +7,7 @@ import Shop from './pages/Shop';
 import ProductDetail from './pages/ProductDetail';
 import Industries from './pages/Industries';
 import Resources from './pages/Resources';
+import ShippingPolicy from './pages/ShippingPolicy';
 import './App.css';
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/industries" element={<Industries />} />
             <Route path="/resources" element={<Resources />} />
+            <Route path="/shipping" element={<ShippingPolicy />} />
           </Routes>
         </div>
         <Footer />
