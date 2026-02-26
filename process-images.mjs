@@ -21,7 +21,8 @@ const imageMap = {
     'tensile-tester.jpg': 'tesniltester.jpg',
     'fixtures.jpg': 'fixturesgrips.jpg',
     'logo.png': 'qtslogo.png',
-    'logo-large.png': 'QTSlogo_larger.png'
+    'logo-large.png': 'QTSlogo_larger.png',
+    'icon.png': 'QTSicon_larger.png'
 };
 
 async function processImages() {

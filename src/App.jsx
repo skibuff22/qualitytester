@@ -9,7 +9,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <div className="flex-shrink-0 flex items-center gap-3">
-              <img src="/images/logo.png" alt="Quality Tester Solutions Logo" className="h-10 w-auto" />
+              <img src="/images/icon.png" alt="Quality Tester Solutions Icon" className="h-10 w-auto" />
               <span className="font-luxury text-2xl font-bold tracking-tight text-slate-900">
                 Quality Tester Solutions
               </span>
