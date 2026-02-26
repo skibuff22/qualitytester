@@ -1,32 +1,63 @@
 import React from 'react';
-import { Building2, Factory, Plane, HardHat, ArrowRight } from 'lucide-react';
+import { Building2, Zap, Anchor, Plane, Factory, Package, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Industries = () => {
     const industries = [
         {
-            title: 'Building Envelope & Air Barriers',
+            title: 'Construction & Infrastructure',
             icon: <Building2 size={32} className="text-stone-500" />,
-            description: 'Ensure ABAA T0002 compliance with rugged adhesion testers designed specifically for verifying fluid-applied and self-adhered membranes on construction sites.',
-            features: ['Moisture Resistance', 'Digital Logging for Audits', 'Portability']
+            items: [
+                { name: 'Bridge Maintenance', desc: 'Testing the adhesion of plasma spray and protective coatings on steel and concrete bridge decks.' },
+                { name: 'Concrete Repair & Overlays', desc: 'Verifying the bond strength of new concrete overlays, screeds, or repair mortars to an existing substrate (ASTM C1583).' },
+                { name: 'Air and Vapor Barriers', desc: 'Testing the "pull-off" strength of air barrier membranes on building sheathing to ensure long-term energy efficiency and moisture control.' },
+                { name: 'Roofing Systems', desc: 'Checking the bonding strength of specialized roofing membranes and spray-applied polyurethane foam (SPF).' }
+            ]
         },
         {
-            title: 'Manufacturing & Coatings',
-            icon: <Factory size={32} className="text-stone-500" />,
-            description: 'Verify the bond strength of industrial coatings, epoxies, and paints on metal, concrete, and composite substrates following ASTM D4541 protocols.',
-            features: ['High-Precision Sensors', 'Rapid Turnaround', 'Automated Pulls']
+            title: 'Oil, Gas, & Energy',
+            icon: <Zap size={32} className="text-stone-500" />,
+            items: [
+                { name: 'Pipeline Coatings', desc: 'Ensuring that anti-corrosion coatings (like fusion-bonded epoxy) can withstand the high-pressure and corrosive environments of buried or underwater pipelines.' },
+                { name: 'Offshore Platforms', desc: 'Testing heavy-duty protective coatings on steel structures exposed to saltwater spray and extreme weather.' },
+                { name: 'Nuclear Power', desc: 'Inspecting specialized coatings used in containment areas where bond integrity is critical for safety and decontamination protocols.' },
+                { name: 'Wind Energy', desc: 'Testing the adhesion of protective layers on wind turbine blades to prevent delamination from high-speed debris and weather erosion.' }
+            ]
         },
         {
-            title: 'Aerospace & Automotive',
+            title: 'Marine & Shipbuilding',
+            icon: <Anchor size={32} className="text-stone-500" />,
+            items: [
+                { name: 'Hull Coatings', desc: 'Verifying the bond of anti-fouling and protective paints on ship hulls, particularly below the waterline.' },
+                { name: 'Yacht Manufacturing', desc: 'Testing structural adhesives used in deck-to-hull connections and other high-stress bonding areas in composite (GRP) or aluminum vessels.' },
+                { name: 'Naval Applications', desc: 'Ensuring military-grade coatings can survive the vibration and impact loads of combat or high-speed operations.' }
+            ]
+        },
+        {
+            title: 'Aerospace & Defense',
             icon: <Plane size={32} className="text-stone-500" />,
-            description: 'Guarantee the structural integrity of specialized painted surfaces and bonded materials in environments where failure is not an option.',
-            features: ['Calibration Certification', 'Micro-Dolly Capability', 'Secure Data Export']
+            items: [
+                { name: 'Specialized Thermal Coatings', desc: 'Testing plasma-sprayed ceramic or metallic coatings used on engine components and heat shields.' },
+                { name: 'Military Aircraft', desc: 'Verifying the adhesion of radar-absorbent materials (RAM) and other high-performance stealth coatings.' },
+                { name: 'Structural Composites', desc: 'Assessing the bond between layers of carbon fiber or other advanced materials in airframes.' }
+            ]
         },
         {
-            title: 'Infrastructure & Concrete',
-            icon: <HardHat size={32} className="text-stone-500" />,
-            description: 'Test the tensile strength of concrete overlays, asphalt bonds, and bridge deck coatings to verify long-term infrastructure durability.',
-            features: ['High Capacity Ranges', 'Thick Substrate Compatible', 'Weatherproof Design']
+            title: 'Industrial Manufacturing & Finishing',
+            icon: <Factory size={32} className="text-stone-500" />,
+            items: [
+                { name: 'Industrial Flooring', desc: 'Testing epoxy resin coatings and heavy-duty floor screeds in warehouses and chemical plants where high forklift traffic occurs.' },
+                { name: 'Automotive Production', desc: 'Checking the bond of structural adhesives and sealants used in vehicle frames and battery housings for EVs.' },
+                { name: 'Heavy Equipment', desc: 'Ensuring the durability of powder coatings and industrial finishes on tractors, cranes, and mining machinery.' }
+            ]
+        },
+        {
+            title: 'Specialized Packaging & Materials',
+            icon: <Package size={32} className="text-stone-500" />,
+            items: [
+                { name: 'High-Strength Laminates', desc: 'Testing the peel and bond strength of industrial-grade laminates, foils, and heavy-duty adhesive tapes.' },
+                { name: 'Protective Linings', desc: 'Verifying the integrity of tank linings used to store hazardous chemicals or potable water.' }
+            ]
         }
     ];
 
@@ -42,27 +73,26 @@ const Industries = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                     {industries.map((industry, idx) => (
-                        <div key={idx} className="bg-stone-50 p-8 rounded-2xl border border-stone-100 hover:shadow-md transition-shadow">
-                            <div className="bg-white w-16 h-16 rounded-xl shadow-sm flex items-center justify-center mb-6 border border-stone-100">
+                        <div key={idx} className="bg-stone-50 p-8 rounded-2xl border border-stone-100 hover:shadow-md transition-shadow flex flex-col">
+                            <div className="bg-white w-16 h-16 rounded-xl shadow-sm flex items-center justify-center mb-6 border border-stone-100 shrink-0">
                                 {industry.icon}
                             </div>
-                            <h3 className="text-2xl font-luxury font-bold text-slate-900 mb-4">{industry.title}</h3>
-                            <p className="text-slate-600 font-light mb-6 leading-relaxed">
-                                {industry.description}
-                            </p>
-                            <ul className="space-y-2 mb-8 border-t border-stone-200 pt-6">
-                                {industry.features.map((feature, fidx) => (
-                                    <li key={fidx} className="flex items-center text-sm text-slate-500 font-medium tracking-wide">
-                                        <span className="w-1.5 h-1.5 bg-stone-400 rounded-full mr-3"></span>
-                                        {feature}
+                            <h3 className="text-2xl font-luxury font-bold text-slate-900 mb-6">{industry.title}</h3>
+                            <ul className="space-y-4 mb-8 flex-grow">
+                                {industry.items.map((item, i) => (
+                                    <li key={i} className="text-sm font-light text-slate-600 leading-relaxed border-l-2 border-stone-200 pl-4">
+                                        <strong className="font-semibold text-slate-800 tracking-wide block mb-1">{item.name}</strong>
+                                        {item.desc}
                                     </li>
                                 ))}
                             </ul>
-                            <Link to="/shop" className="inline-flex items-center text-slate-900 font-bold hover:text-stone-500 transition-colors">
-                                View Equipment <ArrowRight size={16} className="ml-2" />
-                            </Link>
+                            <div className="mt-auto border-t border-stone-200 pt-6">
+                                <Link to="/shop" className="inline-flex items-center text-slate-900 font-bold hover:text-stone-500 transition-colors">
+                                    View Equipment <ArrowRight size={16} className="ml-2" />
+                                </Link>
+                            </div>
                         </div>
                     ))}
                 </div>
