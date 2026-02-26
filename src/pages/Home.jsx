@@ -8,7 +8,11 @@ const Home = () => {
             {/* Optimized Hero Section */}
             <div className="relative isolate pt-14 bg-black bg-opacity-70 overflow-hidden">
                 <div className="absolute inset-0 -z-10">
-                    <img src="/images/hero-background.jpg" alt="Force Measurement Systems Banner" className="w-full h-full object-cover mix-blend-overlay opacity-50" />
+                    <picture>
+                        <source srcSet="/images/hero-background-sm.webp" media="(max-width: 768px)" type="image/webp" />
+                        <source srcSet="/images/hero-background.webp" type="image/webp" />
+                        <img src="/images/hero-background.jpg" alt="Force Measurement Systems Banner" className="w-full h-full object-cover mix-blend-overlay opacity-50" />
+                    </picture>
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent pointer-events-none" />
                 </div>
 
@@ -72,8 +76,12 @@ const Home = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {/* Product 1 Preview */}
                         <div className="bg-white p-4 rounded-2xl shadow-sm border border-stone-100 hover:shadow-xl transition-shadow group flex flex-col">
-                            <div className="aspect-[4/3] bg-stone-50 rounded-xl mb-6 relative overflow-hidden border border-stone-50">
-                                <img src="/images/pull-tester.jpg" alt="Air Barrier Adhesion Test Kit" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" />
+                            <div className="aspect-[4/3] bg-stone-50 rounded-xl mb-6 relative overflow-hidden border border-stone-50 flex items-center justify-center p-4">
+                                <picture className="w-full h-full">
+                                    <source srcSet="/images/abatestkit-sm.webp" media="(max-width: 768px)" type="image/webp" />
+                                    <source srcSet="/images/abatestkit.webp" type="image/webp" />
+                                    <img src="/images/abatestkit.jpg" alt="Air Barrier Adhesion Test Kit" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy" />
+                                </picture>
                                 <div className="absolute top-4 right-4 bg-slate-900 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Top Seller</div>
                             </div>
                             <div className="px-4 pb-6 flex-grow flex flex-col">
@@ -98,7 +106,11 @@ const Home = () => {
                         {/* Product 2 Preview */}
                         <div className="bg-white p-4 rounded-2xl shadow-sm border border-stone-100 hover:shadow-xl transition-shadow group flex flex-col">
                             <div className="aspect-[4/3] bg-stone-50 rounded-xl mb-6 flex items-center justify-center relative overflow-hidden border border-stone-50">
-                                <img src="/images/tensile-tester.jpg" alt="Manual Tensile Tester" className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500 ease-out" />
+                                <picture className="w-full h-full">
+                                    <source srcSet="/images/tensile-tester-sm.webp" media="(max-width: 768px)" type="image/webp" />
+                                    <source srcSet="/images/tensile-tester.webp" type="image/webp" />
+                                    <img src="/images/tensile-tester.jpg" alt="Manual Tensile Tester" className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy" />
+                                </picture>
                             </div>
                             <div className="px-4 pb-6 flex-grow flex flex-col">
                                 <h3 className="text-2xl font-luxury font-bold text-slate-900 mb-2">Manual Tensile Tester</h3>
@@ -122,7 +134,11 @@ const Home = () => {
                         {/* Product 3 Preview */}
                         <div className="bg-white p-4 rounded-2xl shadow-sm border border-stone-100 hover:shadow-xl transition-shadow group flex flex-col">
                             <div className="aspect-[4/3] bg-stone-50 rounded-xl mb-6 relative overflow-hidden border border-stone-50">
-                                <img src="/images/fixtures.jpg" alt="Test Fixtures and Grips" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" />
+                                <picture className="w-full h-full">
+                                    <source srcSet="/images/fixtures-sm.webp" media="(max-width: 768px)" type="image/webp" />
+                                    <source srcSet="/images/fixtures.webp" type="image/webp" />
+                                    <img src="/images/fixtures.jpg" alt="Test Fixtures and Grips" className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy" />
+                                </picture>
                                 <div className="absolute top-4 right-4 bg-white text-slate-900 border border-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Custom</div>
                             </div>
                             <div className="px-4 pb-6 flex-grow flex flex-col">
