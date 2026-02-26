@@ -162,10 +162,10 @@ const App = () => {
                   <div className="absolute top-4 right-4 bg-slate-900 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">In Stock</div>
                 </div>
                 <div className="px-4 pb-6 flex-grow flex flex-col">
-                  <h3 className="text-2xl font-luxury font-bold text-slate-900 mb-2">Automated Tensile Tester</h3>
-                  <p className="text-slate-600 text-sm mb-6 flex-grow font-light">Engineered for absolute precision and cost-effective testing. Automated pulls to eliminate operator error.</p>
+                  <h3 className="text-2xl font-luxury font-bold text-slate-900 mb-2">Manual Tensile Tester</h3>
+                  <p className="text-slate-600 text-sm mb-6 flex-grow font-light">Engineered for absolute precision and highly cost-effective testing. Reliable manual operation for rugged field environments.</p>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-2xl font-bold text-slate-900">$3,250.00</span>
+                    <span className="text-2xl font-bold text-slate-900">$995.00</span>
                     <div className="flex text-stone-400">
                       <Star size={16} fill="currentColor" />
                       <Star size={16} fill="currentColor" />
@@ -223,7 +223,7 @@ const App = () => {
               <p className="max-w-sm mb-6 font-light">Redefining precision in affordable product testing. We provide the tools you need to ensure compliance and excellence without breaking the bank.</p>
               <div className="space-y-4">
                 <div className="flex items-center font-medium"><Lock size={16} className="mr-3 text-stone-300" /> 256-bit SSL Encrypted Checkout</div>
-                <div className="flex items-center text-sm font-light">PO Box 123, Clearwater, FL</div>
+                <div className="flex items-center text-sm font-light">4313 Harbor House Dr., Tampa, FL</div>
               </div>
             </div>
             <div>
