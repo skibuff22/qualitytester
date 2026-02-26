@@ -19,8 +19,8 @@ const Navbar = () => {
 
                         <div className="hidden md:flex items-center space-x-10 font-medium text-slate-600">
                             <Link to="/shop" className="hover:text-slate-900 transition-colors">Shop</Link>
-                            <a href="#" className="hover:text-slate-900 transition-colors">Industries</a>
-                            <a href="#" className="hover:text-slate-900 transition-colors">Resources</a>
+                            <Link to="/industries" className="hover:text-slate-900 transition-colors">Industries</Link>
+                            <Link to="/resources" className="hover:text-slate-900 transition-colors">Resources</Link>
                             <a href="tel:727-754-0019" className="font-semibold text-slate-900 hover:text-slate-600 transition-colors">Call 727-754-0019</a>
                         </div>
 
@@ -36,8 +36,8 @@ const Navbar = () => {
                 <div className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden">
                     <div className="flex flex-col space-y-8 text-2xl font-luxury font-bold">
                         <Link to="/shop" onClick={() => setIsMenuOpen(false)}>Shop</Link>
-                        <a href="#" onClick={() => setIsMenuOpen(false)}>Industries</a>
-                        <a href="#" onClick={() => setIsMenuOpen(false)}>Resources</a>
+                        <Link to="/industries" onClick={() => setIsMenuOpen(false)}>Industries</Link>
+                        <Link to="/resources" onClick={() => setIsMenuOpen(false)}>Resources</Link>
                         <a href="tel:727-754-0019" className="text-xl" onClick={() => setIsMenuOpen(false)}>Call 727-754-0019</a>
                     </div>
                 </div>
