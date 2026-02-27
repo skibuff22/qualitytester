@@ -33,9 +33,12 @@ const Home = () => {
                             <Link to="/shop" className="bg-stone-100 hover:bg-white text-slate-900 px-8 py-4 rounded-md font-semibold text-lg flex items-center justify-center transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg">
                                 Shop Inventory <ShoppingBag className="ml-2" size={20} />
                             </Link>
-                            <button className="bg-transparent hover:bg-white/10 border border-white/30 text-white px-8 py-4 rounded-md font-medium text-lg flex items-center justify-center transition-all">
+                            <Link
+                                to="/process"
+                                className="bg-transparent hover:bg-white/10 border border-white/30 text-white px-8 py-4 rounded-md font-medium text-lg flex items-center justify-center transition-all"
+                            >
                                 Learn Our Process
-                            </button>
+                            </Link>
                         </div>
 
                         <div className="mt-14 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-stone-300 font-medium">

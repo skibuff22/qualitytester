@@ -8,6 +8,7 @@ import ProductDetail from './pages/ProductDetail';
 import Industries from './pages/Industries';
 import Resources from './pages/Resources';
 import ShippingPolicy from './pages/ShippingPolicy';
+import Process from './pages/Process';
 import './App.css';
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="/industries" element={<Industries />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/shipping" element={<ShippingPolicy />} />
+            <Route path="/process" element={<Process />} />
           </Routes>
         </div>
         <Footer />
