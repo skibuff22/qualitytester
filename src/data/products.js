@@ -39,7 +39,7 @@ Operation and pounds per square inch conversion are very simple with our 4 squar
 Includes RS-2K screw fixture, carrying case and a calibration certificate.`,
     additionalInfo: 'Weight: 12 lbs, Capacity: 1,000 LBS, Included: RS-2K Fixture & Case',
     imageBase: '/images/ft1kpt',
-    stripeLink: ''
+    stripeLink: 'https://buy.stripe.com/28EaEQ1mnf7f2YNdLM'
   },
   {
     id: 'FT2KPT',
@@ -53,7 +53,7 @@ Includes RS-2K screw fixture, carrying case and a calibration certificate.`,
 Includes RS-2K screw fixture, carrying case and a calibration certificate.`,
     additionalInfo: 'Weight: 12 lbs, Capacity: 2,000 LBS, Included: RS-2K Fixture & Case',
     imageBase: '/images/ft2kpt',
-    stripeLink: ''
+    stripeLink: 'https://buy.stripe.com/5kQ9AM4yz0clfLz5fg'
   },
   {
     id: 'FTAPT',
@@ -67,7 +67,7 @@ Includes RS-2K screw fixture, carrying case and a calibration certificate.`,
 NIST Traceable calibration certificate included. Includes RS-2K screw fixture.`,
     additionalInfo: 'Weight: 10 lbs, Capacity: Selectable, Included: RS-2K Fixture & Case',
     imageBase: '/images/ftapt',
-    stripeLink: ''
+    stripeLink: 'https://buy.stripe.com/6oU7sEe990cleHvdLM'
   },
   {
     id: 'FTPF21SA500',
@@ -86,6 +86,6 @@ NIST Traceable calibration certificate included. Includes RS-2K screw fixture.`,
 - One year warranty against all mechanical defects.`,
     additionalInfo: 'Weight: 1 lb, Capacity: 500 LBS, Tester Interface: Female 5/16”-18',
     imageBase: '/images/ftpffabric',
-    stripeLink: ''
+    stripeLink: 'https://buy.stripe.com/28EbIUghh2ktgPD6jk'
   }
 ];
