@@ -22,11 +22,19 @@ const Footer = () => {
                         <h4 className="text-white font-semibold mb-6 uppercase tracking-wider text-sm border-b border-slate-800 pb-4 inline-block">Quick Links</h4>
                         <ul className="space-y-4 font-light text-sm">
                             <li><Link to="/shop" className="hover:text-white transition-colors flex items-center"><ArrowRight size={14} className="mr-2 opacity-50" /> Shop</Link></li>
+                            <li><Link to="/helical-tie-tester" className="hover:text-white transition-colors flex items-center"><ArrowRight size={14} className="mr-2 opacity-50" /> Helical Testers</Link></li>
+                            <li><Link to="/buying-guide" className="hover:text-white transition-colors flex items-center"><ArrowRight size={14} className="mr-2 opacity-50" /> Buying Guide</Link></li>
                             <li><Link to="/process" className="hover:text-white transition-colors flex items-center"><ArrowRight size={14} className="mr-2 opacity-50" /> Calibration Process</Link></li>
                             <li><Link to="/shipping" className="hover:text-white transition-colors flex items-center"><ArrowRight size={14} className="mr-2 opacity-50" /> Shipping Policy</Link></li>
                             <li><a href="#" className="hover:text-white transition-colors flex items-center"><ArrowRight size={14} className="mr-2 opacity-50" /> Support & Warranty</a></li>
                             <li><a href="#" className="hover:text-white transition-colors flex items-center"><ArrowRight size={14} className="mr-2 opacity-50" /> Bulk Orders</a></li>
                             <li><a href="#" className="hover:text-white transition-colors flex items-center"><ArrowRight size={14} className="mr-2 opacity-50" /> Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className="text-white font-semibold mb-6 uppercase tracking-wider text-sm border-b border-slate-800 pb-4 inline-block">Partner Sites</h4>
+                        <ul className="space-y-4 font-light text-sm">
+                            <li><a href="https://force-test.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center"><ArrowRight size={14} className="mr-2 opacity-50" /> Force-Test Equipment</a></li>
                         </ul>
                     </div>
                     <div>
