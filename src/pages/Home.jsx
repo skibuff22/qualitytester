@@ -91,7 +91,7 @@ const Home = () => {
                                 <h3 className="text-2xl font-luxury font-bold text-slate-900 mb-2">Air Barrier Adhesion Test Kit</h3>
                                 <p className="text-slate-600 text-sm mb-6 flex-grow font-light">Complete, field-ready kit for accurate air barrier adhesion testing. Includes everything needed for guaranteed precision and ABAA T0002 compliance.</p>
                                 <div className="flex items-center justify-between mb-6">
-                                    <span className="text-2xl font-bold text-slate-900">$1,800.00</span>
+                                    <span className="text-2xl font-bold text-slate-900">$2,200.00</span>
                                     <div className="flex text-stone-400">
                                         <Star size={16} fill="currentColor" />
                                         <Star size={16} fill="currentColor" />
@@ -119,7 +119,7 @@ const Home = () => {
                                 <h3 className="text-2xl font-luxury font-bold text-slate-900 mb-2">Manual Tensile Tester</h3>
                                 <p className="text-slate-600 text-sm mb-6 flex-grow font-light">Engineered for absolute precision and highly cost-effective testing. Reliable manual operation for rugged field environments.</p>
                                 <div className="flex items-center justify-between mb-6">
-                                    <span className="text-2xl font-bold text-slate-900">$995.00</span>
+                                    <span className="text-2xl font-bold text-slate-900">$1,200.00</span>
                                     <div className="flex text-stone-400">
                                         <Star size={16} fill="currentColor" />
                                         <Star size={16} fill="currentColor" />

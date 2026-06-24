@@ -36,8 +36,8 @@ const HelicalTieTester = () => {
                 "offers": {
                     "@type": "AggregateOffer",
                     "priceCurrency": "USD",
-                    "lowPrice": "995.00",
-                    "highPrice": "1500.00",
+                    "lowPrice": "1200.00",
+                    "highPrice": "1750.00",
                     "offerCount": "2",
                     "availability": "https://schema.org/InStock",
                     "seller": {
