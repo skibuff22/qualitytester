@@ -20,7 +20,7 @@ export const products = [
 Operation and pounds per square inch conversion are very simple with our 4 square inch adhesion discs. Ensure completely accurate field preparation with the included FTFCC4 foam cutter.`,
     additionalInfo: 'Weight: 12 lbs, Dimensions: 19 × 13 × 13 in, Capacity: 1,000 LBS',
     imageBase: '/images/abatestkit',
-    stripeLink: 'https://buy.stripe.com/test_6oU00c4wp8qrbkj9cW4ZG00',
+    stripeLink: 'https://buy.stripe.com/dRm00c3uv5wFdDr2341440e',
     imageGallery: [
       '/images/abatestkit-sm.webp',
       '/images/ft1kpt-sm.webp',
