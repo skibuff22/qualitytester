@@ -128,8 +128,8 @@ const Home = () => {
                                         <Star size={16} fill="currentColor" />
                                     </div>
                                 </div>
-                                <Link to="/shop" className="w-full bg-slate-900 hover:bg-stone-700 text-white h-14 rounded-md font-bold flex items-center justify-center transition-colors">
-                                    View in Shop
+                                <Link to="/manual-tensile-tester" className="w-full bg-slate-900 hover:bg-stone-700 text-white h-14 rounded-md font-bold flex items-center justify-center transition-colors">
+                                    View Details
                                 </Link>
                             </div>
                         </div>

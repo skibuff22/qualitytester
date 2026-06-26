@@ -10,6 +10,7 @@ import Resources from './pages/Resources';
 import ShippingPolicy from './pages/ShippingPolicy';
 import Process from './pages/Process';
 import HelicalTieTester from './pages/HelicalTieTester';
+import ManualTensileTester from './pages/ManualTensileTester';
 import BuyingGuide from './pages/BuyingGuide';
 import './App.css';
 
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="/shipping" element={<ShippingPolicy />} />
             <Route path="/process" element={<Process />} />
             <Route path="/helical-tie-tester" element={<HelicalTieTester />} />
+            <Route path="/manual-tensile-tester" element={<ManualTensileTester />} />
             <Route path="/buying-guide" element={<BuyingGuide />} />
           </Routes>
         </div>
