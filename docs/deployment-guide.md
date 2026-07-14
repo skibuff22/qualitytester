@@ -31,6 +31,16 @@ then I can run the live verification.
    `{"ok":true,"service":"qualitytester-api",...}`. Then tell me — I'll run the full live
    test suite (auth rejection, CORS, registration round-trip, encryption) and the first sync.
 
+   *If it still returns the React site's HTML:* the SPA rewrite in `public_html/.htaccess`
+   is catching `/api/*`. Add this line directly under its `RewriteEngine On`:
+
+   ```
+   RewriteCond %{REQUEST_URI} !^/api/
+   ```
+
+   (The API ships its own `.htaccess` that normally takes precedence, so this is only a
+   fallback.)
+
 ## B. Mac Mini (after A) — I can do this part; just give me the sync secret
 
 1. Edit `/Users/pai-admin/Projects/calyx-pai/launchd/com.calyx-pai.qtsync.plist`:
