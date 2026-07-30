@@ -85,11 +85,16 @@ the as-built record above).
 
 ## C. Manuals
 
-Drop manual files into `/Volumes/KnowledgeVault/PAI/manuals/` on the Mac:
-- `default.html` and `default.pdf` — fallback shown for any model
-- `SP1-2KD.html` / `SP1-2KD.pdf` etc. — per-model overrides (exact model number as filename)
+There is ONE manual for the whole SP1 series. Drop it into
+`/Volumes/KnowledgeVault/PAI/manuals/` on the Mac as:
 
-The nightly sync uploads new/changed files automatically.
+- **`sp1.pdf`** — the SP1 user manual (served to every SP1-* tester)
+- `sp1.html` — optional HTML version for in-page display on the landing page
+
+The API resolves a tester's manual by exact model first, then the series prefix (`sp1`
+covers SP1-1K, SP1-2KD, SP1-6C, ...), then `default.*`. The nightly sync uploads
+new/changed files automatically; run `launchctl kickstart gui/501/com.calyx-pai.qtsync`
+to push immediately.
 
 ## D. Vendor
 

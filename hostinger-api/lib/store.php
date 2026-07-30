@@ -58,18 +58,27 @@ function qt_store_certificate(PDO $pdo, string $serial, string $recordId, ?strin
 // ------------------------------------------------------------------ manuals
 
 function qt_get_manual(PDO $pdo, ?string $model): ?array {
+    // Resolution order: exact model (e.g. "SP1-2KD"), then the series prefix before the
+    // first dash lowercased (e.g. "sp1" - one manual covers every SP1-* tester, Todd
+    // 2026-07-30), then "default".
+    $keys = [];
     if ($model !== null && $model !== '') {
-        $st = $pdo->prepare('SELECT * FROM qt_manuals WHERE model = ?');
-        $st->execute([$model]);
+        $keys[] = $model;
+        $prefix = strtolower(explode('-', $model)[0]);
+        if ($prefix !== '' && !in_array($prefix, $keys, true)) {
+            $keys[] = $prefix;
+        }
+    }
+    $keys[] = 'default';
+    $st = $pdo->prepare('SELECT * FROM qt_manuals WHERE model = ?');
+    foreach ($keys as $k) {
+        $st->execute([$k]);
         $row = $st->fetch();
         if ($row !== false) {
             return $row;
         }
     }
-    $st = $pdo->prepare("SELECT * FROM qt_manuals WHERE model = 'default'");
-    $st->execute();
-    $row = $st->fetch();
-    return $row === false ? null : $row;
+    return null;
 }
 
 function qt_upsert_manual(PDO $pdo, string $model, ?string $htmlPath, ?string $pdfPath): void {

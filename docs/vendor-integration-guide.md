@@ -80,6 +80,9 @@ GET /api/v1/testers/{serial}/manual.pdf    -> application/pdf
 
 The HTML body is self-contained (inline styles). Render it inside a sandboxed container.
 
+All SP1-series testers share a single manual (`sp1.pdf`), so these endpoints return the
+same document for every SP1 model — you do not need any per-model manual handling.
+
 ### 3.3 Latest calibration certificate
 
 ```
