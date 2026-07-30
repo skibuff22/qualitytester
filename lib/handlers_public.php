@@ -50,7 +50,7 @@ function handle_get_manual(PDO $pdo, array $cfg, string $serial, bool $pdf): voi
     $bytes = file_get_contents($cfg['storage_dir'] . '/' . $path);
     if ($pdf) {
         header('Content-Type: application/pdf');
-        header('Content-Disposition: inline; filename="force-test-manual.pdf"');
+        header('Content-Disposition: inline; filename="sp1.pdf"');
     } else {
         header('Content-Type: text/html; charset=utf-8');
         header("Content-Security-Policy: default-src 'none'; img-src data: https:; style-src 'unsafe-inline'");
