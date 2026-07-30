@@ -26,7 +26,7 @@ database export; the page calls the API live.
 
 | | |
 |---|---|
-| Base URL | `https://qualitytester.us/api/v1` |
+| Base URL | `https://api.qualitytester.us/api/v1` |
 | Auth | Header `X-API-Key: <vendor key>` on every request (provided separately, via a secure channel) |
 | Transport | HTTPS only. Plain HTTP is redirected and must never be used. |
 | CORS | Browser calls are allowed only from `https://force-test.com` and `https://www.force-test.com` |
@@ -114,7 +114,7 @@ Because every request needs the `X-API-Key` header, PDFs cannot be plain `<a hre
 
 ```html
 <script>
-const API = "https://qualitytester.us/api/v1";
+const API = "https://api.qualitytester.us/api/v1";
 const KEY = "YOUR_VENDOR_KEY";
 const serial = decodeURIComponent(location.pathname.replace(/^\//, "")); // force-test.com/26080
 

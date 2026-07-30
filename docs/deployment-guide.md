@@ -1,7 +1,34 @@
-# QualityTester.us Tester API — Activation Guide (Todd)
+# QualityTester.us Tester API — As-Built Record (deployed 2026-07-30)
 
-Everything is built, tested, and pushed. Three things still require your hPanel login,
-then I can run the live verification.
+**STATUS: LIVE.** The API runs at `https://api.qualitytester.us/api/v1/*`.
+
+Discovery during deployment: qualitytester.us itself is a Hostinger **Web App** (GitHub →
+Vite build → static files, no PHP). The API therefore lives on a separate classic-PHP
+website on the same Cloud plan: **api.qualitytester.us** (free subdomain, own SSL, Git
+auto-deploy from the `api-deploy` branch to its `public_html`). The main site was not
+modified in any way.
+
+What was done on 2026-07-30 (via hPanel, in-browser):
+1. MySQL database `u963144706_qtapi` + same-named user created and assigned.
+2. New website api.qualitytester.us (Custom PHP/HTML) created on the Cloud Startup plan.
+3. GIT deploy connected: repo `skibuff22/qualitytester`, branch `api-deploy` →
+   `public_html`. Pushes to that branch auto-deploy.
+4. `install.php` run once (now permanently locked): tables created, keys generated.
+   Vendor API key delivered to Todd in chat; sync secret installed on the Mac Mini
+   (launchd plist only, never in git).
+5. Mac Mini `com.calyx-pai.qtsync` loaded; first sync pushed 49 testers + 49 certificate
+   PDFs; daily run at 05:30.
+6. Live verification: 15/15 security+functional tests passed (auth rejection, replay
+   guard, forged signature, encrypted cert round-trip, registration round-trip, CORS
+   allow/deny, HSTS, HTTP→301→HTTPS, installer and lib/ locked). Main site QA: unchanged.
+
+A clearly-marked test registration ("TEST - Claude e2e verification", serial 23083,
+id 1) exists on the server and was acked; ignore or delete it in phpMyAdmin if you like.
+
+---
+
+The original activation instructions below are retained for reference (superseded by
+the as-built record above).
 
 ## A. Hostinger (one time, ~10 minutes)
 
