@@ -10,6 +10,30 @@ function qt_try_index(PDO $pdo, string $sql): void {
     }
 }
 
+/**
+ * Owner/registration display columns (2026-08-11). install.php is permanently locked
+ * after first run, so existing production tables are migrated lazily: a cheap probe of
+ * one new column, and only on failure the ALTERs run (each ignored if already present).
+ * The masked values are produced ON THE MAC before push - this server never stores a
+ * current owner's full email/phone in qt_testers.
+ */
+function qt_migrate_owner_columns(PDO $pdo): void {
+    try {
+        $pdo->query('SELECT reg_company FROM qt_testers LIMIT 1');
+        return; // columns already present
+    } catch (Throwable $e) {
+        // fall through and add them
+    }
+    foreach ([
+        'ALTER TABLE qt_testers ADD COLUMN reg_company VARCHAR(300) NULL',
+        'ALTER TABLE qt_testers ADD COLUMN reg_contact_name VARCHAR(300) NULL',
+        'ALTER TABLE qt_testers ADD COLUMN reg_email_masked VARCHAR(300) NULL',
+        'ALTER TABLE qt_testers ADD COLUMN reg_phone_masked VARCHAR(64) NULL',
+    ] as $sql) {
+        qt_try_index($pdo, $sql);
+    }
+}
+
 function qt_create_tables(PDO $pdo): void {
     $driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
     $ai = $driver === 'mysql' ? 'INT NOT NULL AUTO_INCREMENT PRIMARY KEY' : 'INTEGER PRIMARY KEY AUTOINCREMENT';
@@ -23,8 +47,13 @@ function qt_create_tables(PDO $pdo): void {
         last_cal_date VARCHAR(10) NULL,
         cal_due_date VARCHAR(10) NULL,
         record_id VARCHAR(32) NULL,
+        reg_company VARCHAR(300) NULL,
+        reg_contact_name VARCHAR(300) NULL,
+        reg_email_masked VARCHAR(300) NULL,
+        reg_phone_masked VARCHAR(64) NULL,
         updated_at VARCHAR(32) NOT NULL
     )");
+    qt_migrate_owner_columns($pdo);
 
     $pdo->exec("CREATE TABLE IF NOT EXISTS qt_certificates (
         id $ai,

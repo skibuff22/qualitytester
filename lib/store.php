@@ -16,13 +16,18 @@ function qt_get_tester(PDO $pdo, string $serial): ?array {
 
 function qt_upsert_tester(PDO $pdo, array $t): void {
     $st = $pdo->prepare(
-        'UPDATE qt_testers SET model=?, gage_type=?, capacity=?, last_cal_date=?, cal_due_date=?, record_id=?, updated_at=? WHERE serial=?'
+        'UPDATE qt_testers SET model=?, gage_type=?, capacity=?, last_cal_date=?, cal_due_date=?, record_id=?,
+         reg_company=?, reg_contact_name=?, reg_email_masked=?, reg_phone_masked=?, updated_at=? WHERE serial=?'
     );
     $vals = [
         $t['model'] ?? null, $t['gage_type'] ?? null,
         isset($t['capacity']) ? (int)$t['capacity'] : null,
         $t['last_cal_date'] ?? null, $t['cal_due_date'] ?? null,
-        $t['record_id'] ?? null, qt_now(),
+        $t['record_id'] ?? null,
+        // Owner display fields: masked on the Mac before push; never full contact data.
+        $t['reg_company'] ?? null, $t['reg_contact_name'] ?? null,
+        $t['reg_email_masked'] ?? null, $t['reg_phone_masked'] ?? null,
+        qt_now(),
     ];
     $st->execute(array_merge($vals, [$t['serial']]));
     if ($st->rowCount() === 0) {
@@ -30,8 +35,9 @@ function qt_upsert_tester(PDO $pdo, array $t): void {
         $chk->execute([$t['serial']]);
         if ($chk->fetch() === false) {
             $ins = $pdo->prepare(
-                'INSERT INTO qt_testers (serial, model, gage_type, capacity, last_cal_date, cal_due_date, record_id, updated_at)
-                 VALUES (?,?,?,?,?,?,?,?)'
+                'INSERT INTO qt_testers (serial, model, gage_type, capacity, last_cal_date, cal_due_date, record_id,
+                 reg_company, reg_contact_name, reg_email_masked, reg_phone_masked, updated_at)
+                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?)'
             );
             $ins->execute(array_merge([$t['serial']], $vals));
         }

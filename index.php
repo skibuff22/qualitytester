@@ -21,6 +21,7 @@ ini_set('display_errors', '0'); // never leak stack traces to the internet
 
 require_once __DIR__ . '/lib/config.php';
 require_once __DIR__ . '/lib/respond.php';
+require_once __DIR__ . '/lib/schema.php';
 require_once __DIR__ . '/lib/auth.php';
 require_once __DIR__ . '/lib/handlers_public.php';
 require_once __DIR__ . '/lib/handlers_sync.php';
@@ -35,6 +36,7 @@ set_exception_handler(function (Throwable $e) {
 $cfg = qt_config();
 qt_cors($cfg);
 $pdo = qt_pdo($cfg);
+qt_migrate_owner_columns($pdo); // lazy migration: install.php is locked; probe is one cheap query
 
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $uri = $_SERVER['REQUEST_URI'] ?? '/';

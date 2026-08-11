@@ -27,6 +27,16 @@ function handle_get_tester(PDO $pdo, array $cfg, string $serial): void {
         'last_cal_date'  => $t['last_cal_date'],
         'cal_due_date'   => $t['cal_due_date'],
         'registered'     => qt_has_registration($pdo, $serial),
+        // Current owner on file (from the CRM, via the nightly Mac sync). Company and
+        // contact name are shown in full so a resold tester can be re-registered with
+        // the form prefilled; email/phone arrive ALREADY MASKED from the Mac and are
+        // display hints only - the full values never reach this server's tester table.
+        'registration'   => [
+            'company'      => $t['reg_company'] ?? null,
+            'contact_name' => $t['reg_contact_name'] ?? null,
+            'email_masked' => $t['reg_email_masked'] ?? null,
+            'phone_masked' => $t['reg_phone_masked'] ?? null,
+        ],
         'has_certificate'=> $cert !== null,
         'certificate_date' => $cert['cal_date'] ?? null,
         'manual'         => [
