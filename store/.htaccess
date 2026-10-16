@@ -1,0 +1,10 @@
+Options -Indexes
+# Product files are only ever streamed by download.php
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^files(/|$) - [F]
+RewriteRule ^tests(/|$) - [F]
+</IfModule>
+<FilesMatch "^(lib|catalog)\.php$">
+Require all denied
+</FilesMatch>
