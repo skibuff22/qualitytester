@@ -19,7 +19,7 @@ try {
     store_html_page('Please wait', '<h1>We could not verify the payment yet</h1><p>Refresh this page in a moment. Your download link is also being emailed to you.</p>', 502);
 }
 
-if (($session['payment_status'] ?? '') !== 'paid') {
+if (!store_is_paid($session)) {
     store_html_page('Payment pending', '<h1>Payment pending</h1><p>Once the payment clears, refresh this page or use the link in your email.</p>');
 }
 

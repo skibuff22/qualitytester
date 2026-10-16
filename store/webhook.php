@@ -41,7 +41,7 @@ if (store_event_seen($pdo, (string)$event['id'], (string)$event['type'])) {
 
 if ($event['type'] === 'checkout.session.completed' || $event['type'] === 'checkout.session.async_payment_succeeded') {
     $session = $event['data']['object'] ?? [];
-    if (($session['payment_status'] ?? '') === 'paid') {
+    if (store_is_paid($session)) {
         $order = store_record_order($pdo, $session, 'webhook');
         if ($order && empty($order['email_sent_at'])) {
             store_send_delivery_email($pdo, $order);

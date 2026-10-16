@@ -46,6 +46,9 @@ ok($o2['email'] === 'buyer@example.com' && (int)$o2['amount_cents'] === 2900, 'o
 $unpaid = store_record_order($pdo, ['id' => 'cs_test_3', 'metadata' => ['sku' => 'AOK-1'], 'payment_status' => 'unpaid'], 'success');
 ok($unpaid['status'] === 'unpaid', 'unpaid session recorded as unpaid (download.php refuses non-paid)');
 
+$free = store_record_order($pdo, ['id' => 'cs_test_4', 'metadata' => ['sku' => 'AOK-1'], 'payment_status' => 'no_payment_required', 'amount_total' => 0, 'customer_details' => ['email' => 'x@example.com']], 'webhook');
+ok($free['status'] === 'paid', '100%-discounted session (no_payment_required) counts as paid');
+
 // --- events
 ok(!store_event_seen($pdo, 'evt_a', 'x'), 'first event not seen');
 ok(store_event_seen($pdo, 'evt_a', 'x'), 'duplicate event detected');

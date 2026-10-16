@@ -180,6 +180,11 @@ function stripe_verify_signature(string $payload, string $header, string $secret
 
 // ------------------------------------------------------------------ orders
 
+/** Stripe reports a fully-discounted (promo code) one-time session as no_payment_required. */
+function store_is_paid(array $session): bool {
+    return in_array($session['payment_status'] ?? '', ['paid', 'no_payment_required'], true);
+}
+
 function store_find_order(PDO $pdo, string $sessionId): ?array {
     $st = $pdo->prepare('SELECT * FROM qt_store_orders WHERE session_id = ?');
     $st->execute([$sessionId]);
@@ -197,7 +202,7 @@ function store_record_order(PDO $pdo, array $session, string $source): array {
     $email  = $session['customer_details']['email'] ?? ($session['customer_email'] ?? null);
     $amount = (int)($session['amount_total'] ?? 0);
     $cur    = (string)($session['currency'] ?? 'usd');
-    $status = ($session['payment_status'] ?? '') === 'paid' ? 'paid' : (string)($session['payment_status'] ?? 'unknown');
+    $status = store_is_paid($session) ? 'paid' : (string)($session['payment_status'] ?? 'unknown');
     $pi     = is_string($session['payment_intent'] ?? null) ? $session['payment_intent'] : null;
     $now    = store_now();
 
