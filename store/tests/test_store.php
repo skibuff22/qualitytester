@@ -69,6 +69,10 @@ ok($h['visits'] === 3 && $h['checkout_clicks'] === 1, 'hit summary counts visits
 ok(($h['by_source']['hn'] ?? 0) === 1 && ($h['by_source']['google.com'] ?? 0) === 1 && ($h['by_source']['direct'] ?? 0) === 1, 'source = utm, else referrer host, else direct');
 ok(($h['checkout_by_source']['hn'] ?? 0) === 1, 'checkout clicks attributed by src');
 
+// --- launch price (E7)
+ok(catalog_all(strtotime('2026-11-02T23:59:59Z'))['AOK-1']['price_cents'] === 1900, 'AOK-1 launch price $19 through 2026-11-02 UTC');
+ok(catalog_all(strtotime('2026-11-03T00:00:00Z'))['AOK-1']['price_cents'] === 2900, 'AOK-1 reverts to $29 on 2026-11-03 UTC');
+
 // --- catalog + files present
 foreach (catalog_all() as $sku => $p) {
     ok(is_file(dirname(__DIR__) . '/files/' . $p['file']), "product file exists for $sku ({$p['file']})");
