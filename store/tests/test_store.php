@@ -53,6 +53,22 @@ ok($free['status'] === 'paid', '100%-discounted session (no_payment_required) co
 ok(!store_event_seen($pdo, 'evt_a', 'x'), 'first event not seen');
 ok(store_event_seen($pdo, 'evt_a', 'x'), 'duplicate event detected');
 
+// --- traffic beacon (E5)
+$f = store_hit_fields('view', '/blog/why-x/?a=1', '?utm_source=DevTo&utm_medium=<script>', 'https://www.news.ycombinator.com/item?id=1');
+ok($f['path'] === '/blog/why-x/' && $f['utm_source'] === 'devto' && $f['ref_host'] === 'news.ycombinator.com', 'hit fields normalised (path, utm, ref host)');
+ok($f['utm_medium'] === 'script', 'hit fields strip markup');
+ok(store_hit_fields('evil', '/')['kind'] === 'view', 'unknown hit kind falls back to view');
+ok(store_is_bot('Mozilla/5.0 (compatible; Googlebot/2.1)') && store_is_bot('') && !store_is_bot('Mozilla/5.0 (X11; Linux) Firefox/130.0'), 'bot filter');
+store_record_hit($pdo, store_hit_fields('view', '/', '?utm_source=hn'), '2026-10-19T00:00:00Z');
+store_record_hit($pdo, store_hit_fields('view', '/', '', 'https://google.com/'), '2026-10-19T00:00:01Z');
+store_record_hit($pdo, store_hit_fields('view', '/'), '2026-10-19T00:00:02Z');
+store_record_hit($pdo, store_hit_fields('checkout', '/checkout/AOK-1', 'utm_source=hn'), '2026-10-19T00:00:03Z');
+store_record_hit($pdo, store_hit_fields('view', '/'), '2026-01-01T00:00:00Z');
+$h = store_hit_summary($pdo, '2026-10-18T00:00:00Z');
+ok($h['visits'] === 3 && $h['checkout_clicks'] === 1, 'hit summary counts visits and checkout clicks in window');
+ok(($h['by_source']['hn'] ?? 0) === 1 && ($h['by_source']['google.com'] ?? 0) === 1 && ($h['by_source']['direct'] ?? 0) === 1, 'source = utm, else referrer host, else direct');
+ok(($h['checkout_by_source']['hn'] ?? 0) === 1, 'checkout clicks attributed by src');
+
 // --- catalog + files present
 foreach (catalog_all() as $sku => $p) {
     ok(is_file(dirname(__DIR__) . '/files/' . $p['file']), "product file exists for $sku ({$p['file']})");

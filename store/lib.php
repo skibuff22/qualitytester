@@ -92,6 +92,17 @@ function store_migrate(PDO $pdo): void {
     } catch (Throwable $e) {
         // exists
     }
+    // First-party traffic beacon (E5): no IP, no user agent, no cookies - counts only.
+    $pdo->exec("CREATE TABLE IF NOT EXISTS qt_store_hits (
+        id $ai,
+        ts VARCHAR(32) NOT NULL,
+        kind VARCHAR(16) NOT NULL,
+        path VARCHAR(200) NOT NULL,
+        ref_host VARCHAR(128) NULL,
+        utm_source VARCHAR(64) NULL,
+        utm_medium VARCHAR(64) NULL,
+        utm_campaign VARCHAR(64) NULL
+    )");
 }
 
 function store_now(): string {
@@ -235,6 +246,66 @@ function store_event_seen(PDO $pdo, string $eventId, string $type): bool {
     } catch (Throwable $e) {
         return true; // duplicate delivery
     }
+}
+
+// ------------------------------------------------------------------ traffic beacon
+
+/** Lowercase token of [a-z0-9._-], capped; '' when nothing usable. */
+function store_hit_token(?string $v, int $max = 64): string {
+    $v = strtolower(trim((string)$v));
+    $v = preg_replace('/[^a-z0-9._\/-]+/', '-', $v) ?? '';
+    return substr(trim($v, '-'), 0, $max);
+}
+
+function store_is_bot(string $ua): bool {
+    return $ua === '' || (bool)preg_match('/bot|crawl|spider|slurp|preview|monitor|curl|wget|python|headless|lighthouse/i', $ua);
+}
+
+/**
+ * Normalise one beacon hit. $q is the landing page's query string (for utm_*),
+ * $ref the page's document.referrer (only the host is kept).
+ * @return array{kind:string,path:string,ref_host:?string,utm_source:?string,utm_medium:?string,utm_campaign:?string}
+ */
+function store_hit_fields(string $kind, string $path, string $q = '', string $ref = ''): array {
+    parse_str(ltrim($q, '?'), $utm);
+    $host = strtolower((string)(parse_url($ref, PHP_URL_HOST) ?? ''));
+    $host = preg_replace('/^www\./', '', $host) ?? '';
+    $path = '/' . ltrim(store_hit_token(parse_url($path, PHP_URL_PATH) ?: '/', 200), '/');
+    $nz = static fn(string $s): ?string => $s === '' ? null : $s;
+    return [
+        'kind'         => in_array($kind, ['view', 'checkout'], true) ? $kind : 'view',
+        'path'         => $path,
+        'ref_host'     => $nz(store_hit_token($host, 128)),
+        'utm_source'   => $nz(store_hit_token(is_string($utm['utm_source'] ?? null) ? $utm['utm_source'] : '')),
+        'utm_medium'   => $nz(store_hit_token(is_string($utm['utm_medium'] ?? null) ? $utm['utm_medium'] : '')),
+        'utm_campaign' => $nz(store_hit_token(is_string($utm['utm_campaign'] ?? null) ? $utm['utm_campaign'] : '')),
+    ];
+}
+
+function store_record_hit(PDO $pdo, array $f, ?string $ts = null): void {
+    $st = $pdo->prepare('INSERT INTO qt_store_hits (ts, kind, path, ref_host, utm_source, utm_medium, utm_campaign) VALUES (?,?,?,?,?,?,?)');
+    $st->execute([$ts ?? store_now(), $f['kind'], $f['path'], $f['ref_host'], $f['utm_source'], $f['utm_medium'], $f['utm_campaign']]);
+}
+
+/** Source = utm_source, else referrer host, else "direct". */
+function store_hit_summary(PDO $pdo, string $sinceTs): array {
+    $st = $pdo->prepare("SELECT kind, path, COALESCE(utm_source, ref_host, 'direct') AS src, COUNT(*) AS n
+                         FROM qt_store_hits WHERE ts >= ? GROUP BY kind, path, src");
+    $st->execute([$sinceTs]);
+    $out = ['since' => $sinceTs, 'visits' => 0, 'checkout_clicks' => 0, 'by_source' => [], 'by_path' => [], 'checkout_by_source' => []];
+    foreach ($st->fetchAll() as $r) {
+        $n = (int)$r['n'];
+        if ($r['kind'] === 'checkout') {
+            $out['checkout_clicks'] += $n;
+            $out['checkout_by_source'][$r['src']] = ($out['checkout_by_source'][$r['src']] ?? 0) + $n;
+        } else {
+            $out['visits'] += $n;
+            $out['by_source'][$r['src']] = ($out['by_source'][$r['src']] ?? 0) + $n;
+            $out['by_path'][$r['path']] = ($out['by_path'][$r['path']] ?? 0) + $n;
+        }
+    }
+    arsort($out['by_source']); arsort($out['by_path']); arsort($out['checkout_by_source']);
+    return $out;
 }
 
 // ------------------------------------------------------------------ download tokens

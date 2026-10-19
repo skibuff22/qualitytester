@@ -24,5 +24,7 @@ $rows = $pdo->query("SELECT id, session_id, sku, email, amount_cents, currency, 
                      FROM qt_store_orders ORDER BY id DESC LIMIT $limit")->fetchAll();
 $totals = $pdo->query("SELECT COUNT(*) AS orders, COALESCE(SUM(amount_cents),0) AS cents FROM qt_store_orders WHERE status='paid'")->fetch();
 $events = (int)$pdo->query('SELECT COUNT(*) FROM qt_store_events')->fetchColumn();
+$days = max(1, min(90, (int)($_GET['days'] ?? 7)));
+$hits = store_hit_summary($pdo, gmdate('Y-m-d\TH:i:s\Z', time() - $days * 86400));
 echo json_encode(['ok' => true, 'paid_orders' => (int)$totals['orders'], 'gross_cents' => (int)$totals['cents'],
-    'webhook_events' => $events, 'orders' => $rows], JSON_UNESCAPED_SLASHES);
+    'webhook_events' => $events, 'orders' => $rows, 'hits_days' => $days, 'hits' => $hits], JSON_UNESCAPED_SLASHES);

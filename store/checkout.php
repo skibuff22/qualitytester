@@ -16,6 +16,16 @@ if ($product === null) {
     store_html_page('Unknown product', '<h1>Unknown product</h1><p>That SKU does not exist.</p>', 404);
 }
 
+// Count the click (E5). `src` is the visitor's utm_source carried by the storefront's Buy link.
+try {
+    if (!store_is_bot((string)($_SERVER['HTTP_USER_AGENT'] ?? ''))) {
+        $src = (string)($_GET['src'] ?? '');
+        store_record_hit(store_pdo(), store_hit_fields('checkout', '/checkout/' . $sku, $src === '' ? '' : 'utm_source=' . rawurlencode($src)));
+    }
+} catch (Throwable $e) {
+    error_log('[store] checkout hit failed: ' . $e->getMessage());
+}
+
 $cfg = store_config();
 $successUrl = $cfg['base_url'] . '/success.php?session_id={CHECKOUT_SESSION_ID}';
 $cancelUrl  = $cfg['storefront_url'];
