@@ -73,6 +73,7 @@ ok(($h['checkout_by_source']['hn'] ?? 0) === 1, 'checkout clicks attributed by s
 ok(catalog_all(strtotime('2026-11-02T23:59:59Z'))['AOK-1']['price_cents'] === 1900, 'AOK-1 launch price $19 through 2026-11-02 UTC');
 ok(catalog_all(strtotime('2026-11-03T00:00:00Z'))['AOK-1']['price_cents'] === 2900, 'AOK-1 reverts to $29 on 2026-11-03 UTC');
 
+ok(catalog_get('QA-TPL-1')['price_cents'] === 4900, 'QA-TPL-1 is $49');
 // --- catalog + files present
 foreach (catalog_all() as $sku => $p) {
     ok(is_file(dirname(__DIR__) . '/files/' . $p['file']), "product file exists for $sku ({$p['file']})");

@@ -22,6 +22,16 @@ function catalog_all(?int $now = null): array {
             'download_name' => 'agent-ops-kit-v1.zip',
             'max_downloads' => 20,
         ],
+        // E9 (sprint 2026-10-19): second product line for the Force-Test audience.
+        'QA-TPL-1' => [
+            'name'        => 'Fastener & Anchor Pull-Test Templates v1',
+            'description' => 'Excel pull-test report with automatic PASS/FAIL and statistics, ultimate-load sheet (mean, s, CoV, characteristic value), calibration log, unit converter, printable procedure checklist and an ASTM/ISO/ACI/ICC-ES standards index.',
+            'price_cents' => 4900,
+            'currency'    => 'usd',
+            'file'        => 'qa-templates-v1.zip',
+            'download_name' => 'qa-templates-v1.zip',
+            'max_downloads' => 20,
+        ],
     ];
 }
 
