@@ -32,6 +32,26 @@ function catalog_all(?int $now = null): array {
             'download_name' => 'qa-templates-v1.zip',
             'max_downloads' => 20,
         ],
+        // E11 (sprint): third product, a pre-publish gate for AI-assisted posts.
+        'PUB-GATE-1' => [
+            'name'        => 'Publish Gate v1 — verify AI-assisted posts before they go out',
+            'description' => 'verify_post.py checks every draft against your facts file and voice guide (banned phrases, unsupported numbers, dead links, LLM claim-by-claim check, fails closed); publishers refuse a draft that changed after it passed. Facts/voice templates, example dev.to publisher, 8 tests.',
+            'price_cents' => 1900,
+            'currency'    => 'usd',
+            'file'        => 'publish-gate-v1.zip',
+            'download_name' => 'publish-gate-v1.zip',
+            'max_downloads' => 20,
+        ],
+        // Sprint bundle: AOK + Publish Gate, the two zips unchanged in one download.
+        'BUNDLE-1' => [
+            'name'        => 'Agent Ops Kit + Publish Gate bundle',
+            'description' => 'Both kits in one download: the Agent Ops Kit (3-layer framework for Claude Code, Cursor and Codex) and Publish Gate v1 (pre-publish verification for AI-assisted posts).',
+            'price_cents' => 2900,
+            'currency'    => 'usd',
+            'file'        => 'bundle-v1.zip',
+            'download_name' => 'agent-ops-kit-publish-gate-bundle-v1.zip',
+            'max_downloads' => 20,
+        ],
     ];
 }
 
